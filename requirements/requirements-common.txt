@@ -1,0 +1,4 @@
+matplotlib
+pyyaml
+rosbags
+tqdm
