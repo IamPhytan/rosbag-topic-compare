@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from typing import Callable
 
 
-def path_type(exists: bool = True) -> Callable[[str], Path]:
+def path_type(exists: bool = True) -> "Callable[[str], Path]":
     """Path type for use with argparse
 
     Args:
