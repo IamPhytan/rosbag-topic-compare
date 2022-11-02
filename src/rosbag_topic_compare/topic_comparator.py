@@ -151,6 +151,9 @@ class BagTopicComparator:
         """
         self.verify_data_extraction(self.export_metadata.__name__)
 
+        # Default value
+        path = f"topics_{self.folder.name}.json" if path is None else path
+
         # Infer from path extension
         ext = path.suffix[1:].lower()
         if ext not in ("json", "yaml", "yml"):
@@ -158,7 +161,6 @@ class BagTopicComparator:
                 f"Metadata format {ext} is not supported. Try using json or yaml"
             )
 
-        path = f"topics_{self.folder.name}.{ext}" if path is None else path
         with open(path, "w", encoding="utf-8") as file:
             if ext == "json":
                 json.dump(self.topics, file)
@@ -166,8 +168,7 @@ class BagTopicComparator:
                 yaml.dump(self.topics, file)
 
     def plot(self, img_path: Optional[Path | str] = None) -> None:
-        """Show the missing topics between the rosbags in each bag
-         using a scatterplot with matplotlib
+        """Show the missing topics between the rosbags in each bag using a matplotlib scatterplot
 
         Args:
             img_path: Figure export path. Defaults to None. If None, figure will be saved in `pwd/missing_topics.png`
