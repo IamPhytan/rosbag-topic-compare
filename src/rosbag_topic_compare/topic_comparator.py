@@ -68,6 +68,19 @@ class BagTopicComparator:
         with open(json_path, "r", encoding="utf-8") as file:
             return cls.from_dict(json.load(file))
 
+    @classmethod
+    def from_yaml(cls, yaml_path: Path | str) -> BagTopicComparator:
+        """Instantiate RosbagComparator from a YAML file path
+
+        Args:
+            yaml_path: Path to a YAML file
+
+        Returns:
+            RosbagComparator: Instance of RosbagComparator
+        """
+        with open(yaml_path, "r", encoding="utf-8") as file:
+            return cls.from_dict(yaml.safe_load(file))
+
     def extract_data(self) -> None:
         """Extract all the topics cointaned in the rosbags at the path {self.folder}"""
         paths = list(self.folder.glob("*.bag"))
@@ -110,7 +123,7 @@ class BagTopicComparator:
         """Get a list of the topics in a rosbag file
 
         Args:
-            filename (Path | str): path of the rosbag file
+            filename: path of the rosbag file
 
         Returns:
             [type]: list of the topics contained in the rosbag file
@@ -129,39 +142,35 @@ class BagTopicComparator:
                 RuntimeWarning,
             )
 
-    def export_metadata(
-        self, path: Path | str = None, metadata_format: str = "json"
-    ) -> None:
+    def export_metadata(self, path: Path | str = None) -> None:
         """Export topics dictionary to a metadata file
 
         Args:
-            path (Path | str, optional): path of the metadata file.
+            path: path of the metadata file. Defaults to None.
             If None, the topics will be saved in topics_<foldername>.json.
-            metadata_format (str): type of metadata file, defaults to json
         """
         self.verify_data_extraction(self.export_metadata.__name__)
 
-        ext = metadata_format.lower()
-        if ext not in ("json", "yaml"):
+        # Infer from path extension
+        ext = path.suffix[1:].lower()
+        if ext not in ("json", "yaml", "yml"):
             raise NotImplementedError(
-                f"Metadata format {metadata_format} not implemented"
+                f"Metadata format {ext} is not supported. Try using json or yaml"
             )
 
         path = f"topics_{self.folder.name}.{ext}" if path is None else path
         with open(path, "w", encoding="utf-8") as file:
             if ext == "json":
                 json.dump(self.topics, file)
-            elif ext == "json":
+            elif ext in ("yaml", "yml"):
                 yaml.dump(self.topics, file)
 
-    def plot(self, save_fig: bool = False, img_path: Optional[Path | str] = None) -> None:
+    def plot(self, img_path: Optional[Path | str] = None) -> None:
         """Show the missing topics between the rosbags in each bag
          using a scatterplot with matplotlib
 
         Args:
-            save_fig (bool, optional): Indicate whether or not the generated figure will be saved. Defaults to False
-            img_path (Path | str, optional): Figure export path.
-            Defaults to None. If None, figure will be saved in `missing_topics.png`
+            img_path: Figure export path. Defaults to None. If None, figure will be saved in `pwd/missing_topics.png`
         """
         self.verify_data_extraction(self.plot.__name__)
 
@@ -210,9 +219,9 @@ class BagTopicComparator:
         fig.suptitle(f"Missing topics in the rosbags of '{self.folder.name}'")
         plt.tight_layout()
 
-        if save_fig:
+        if img_path:
             # Save figure to file
-            fig.savefig(img_path or "missing_topics.png")
+            fig.savefig(img_path or f"missing_topics_{self.folder.name}.png")
 
         # Show figure
         plt.show()
