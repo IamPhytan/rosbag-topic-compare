@@ -39,7 +39,7 @@ Available options are:
 Version:
 --------
 
-- rosbag-topic-compare v0.0.1
+- rosbag-topic-compare v0.0.0
 """
 from __future__ import annotations
 
@@ -85,10 +85,13 @@ def main():
     is_plot = args.plot
     rosbag_comp = BagTopicComparator(data_path)
     rosbag_comp.extract_data()
-    if args.export:
-        rosbag_comp.export_metadata(args.export)
+    if args.metadata:
+        rosbag_comp.export_metadata(args.metadata)
     if is_plot:
-        rosbag_comp.plot(args.plot_path)
+        if args.fig:
+            rosbag_comp.plot(args.fig)
+        else:
+            rosbag_comp.plot(data_path / "missing_topics.png")
 
 
 if __name__ == "__main__":
