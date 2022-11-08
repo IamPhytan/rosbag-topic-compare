@@ -4,6 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "rosbag-topic-compare"
+version = "0.0.0"
 authors = [{ name = "damienlarocque", email = "phicoltan@gmail.com" }]
 license = { file = "LICENSE" }
 classifiers = ["License :: OSI Approved :: MIT License"]
