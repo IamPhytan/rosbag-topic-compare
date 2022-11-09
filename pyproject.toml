@@ -7,7 +7,7 @@ name = "rosbag-topic-compare"
 authors = [{ name = "damienlarocque", email = "phicoltan@gmail.com" }]
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
-dependencies = ["rosbags", "tqdm"]
+dependencies = ["pyyaml", "rosbags", "tqdm"]
 readme = "README.md"
 classifiers = [
     "License :: OSI Approved :: MIT License",
@@ -22,8 +22,8 @@ dev = ["black", "pylint", "bump2version"]
 
 [project.urls]
 Homepage = "https://github.com/IamPhytan/rosbag-topic-compare"
-"GitHub Repository" = "https://github.com/IamPhytan/rosbag-topic-compare"
-"GitLab Repository" = "https://gitlab.com/damienlarocque/rosbag-topic-compare"
+"Repository on GitHub" = "https://github.com/IamPhytan/rosbag-topic-compare"
+"Repository on GitLab" = "https://gitlab.com/damienlarocque/rosbag-topic-compare"
 
 [project.scripts]
 rosbag-topic-compare = "rosbag_topic_compare.__main__:main"
