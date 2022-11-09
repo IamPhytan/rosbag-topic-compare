@@ -167,6 +167,14 @@ class BagTopicComparator:
             elif ext in ("yaml", "yml"):
                 yaml.dump(self.topics, file)
 
+    def to_yaml_str(self) -> str:
+        """Exports a yaml-serialized string from the topics dictionary
+
+        Returns:
+            str: YAML-serialized string with topics summary
+        """
+        return yaml.dump(self.topics)
+
     def plot(self, img_path: Optional[Path | str] = None) -> None:
         """Show the missing topics between the rosbags in each bag using a matplotlib scatterplot
 
