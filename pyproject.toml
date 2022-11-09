@@ -1,14 +1,23 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["flit"]
+build-backend = "flit.buildapi"
 
 [project]
 name = "rosbag-topic-compare"
-version = "0.0.0"
 authors = [{ name = "damienlarocque", email = "phicoltan@gmail.com" }]
 license = { file = "LICENSE" }
-classifiers = ["License :: OSI Approved :: MIT License"]
+requires-python = ">=3.9"
+dependencies = ["rosbags", "tqdm"]
+readme = "README.md"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+]
 dynamic = ["version", "description"]
+
+[project.optional-dependencies]
+matplotlib = ["matplotlib"]
 
 [project.urls]
 Homepage = "https://github.com/IamPhytan/rosbag-topic-compare"
