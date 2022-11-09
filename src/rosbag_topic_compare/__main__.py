@@ -93,7 +93,7 @@ def main():
         else:
             rosbag_comp.plot(data_path / "missing_topics.png")
     if not args.metadata and not is_plot:
-        # Default without any arguments
+        # Default behavior, without any arguments
         topics_desc = rosbag_comp.to_yaml_str()
         print(topics_desc)
 

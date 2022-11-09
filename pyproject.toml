@@ -17,12 +17,13 @@ classifiers = [
 dynamic = ["version", "description"]
 
 [project.optional-dependencies]
-matplotlib = ["matplotlib"]
+plot = ["matplotlib"]
+dev = ["black", "pylint", "bump2version"]
 
 [project.urls]
 Homepage = "https://github.com/IamPhytan/rosbag-topic-compare"
-GitHub = "https://github.com/IamPhytan/rosbag-topic-compare"
-GitLab = "https://gitlab.com/damienlarocque/rosbag-topic-compare"
+"GitHub Repository" = "https://github.com/IamPhytan/rosbag-topic-compare"
+"GitLab Repository" = "https://gitlab.com/damienlarocque/rosbag-topic-compare"
 
 [project.scripts]
 rosbag-topic-compare = "rosbag_topic_compare.__main__:main"

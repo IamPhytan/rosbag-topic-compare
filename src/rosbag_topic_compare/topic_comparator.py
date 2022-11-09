@@ -8,8 +8,14 @@ from itertools import chain
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-import matplotlib as mtp
-import matplotlib.pyplot as plt
+# Condition based on optional plt dependency
+try:
+    mtp = None
+    import matplotlib as mtp
+    import matplotlib.pyplot as plt
+except ImportError:
+    pass
+
 import yaml
 from rosbags.rosbag1 import Reader as Reader1
 from rosbags.rosbag2 import Reader as Reader2
@@ -181,6 +187,12 @@ class BagTopicComparator:
         Args:
             img_path: Figure export path. Defaults to None. If None, figure will be saved in `pwd/missing_topics.png`
         """
+
+        if not mtp:
+            raise ImportError(
+                "matplotlib is not included in the installed version of rosbag-topic-compare. Install 'rosbag-topic-compare[plot]'"
+            )
+
         self.verify_data_extraction(self.plot.__name__)
 
         # Get the difference dictionary
