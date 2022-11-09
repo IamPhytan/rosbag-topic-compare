@@ -39,7 +39,7 @@ Available options are:
 Version:
 --------
 
-- rosbag-topic-compare v0.0.0
+- rosbag-topic-compare v0.0.1
 """
 from __future__ import annotations
 
