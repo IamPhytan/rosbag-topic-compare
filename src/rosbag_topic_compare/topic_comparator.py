@@ -143,7 +143,7 @@ class BagTopicComparator:
         """Assert that extract_data() was called"""
         if not self.topics:
             raise RuntimeError(
-                "Topics are not extracted."
+                "Topics are not extracted. "
                 f"Call 'extract_data()' before calling '{caller_name}'"
             )
 
@@ -196,6 +196,13 @@ class BagTopicComparator:
 
         # Get the difference dictionary
         diff = self.topics["difference"]
+
+        if len(diff) == 0:
+            raise ValueError(
+                "Dataset has no differences : all rosbags have the same topics. "
+                "Cannot plot a summary of the topic consistency"
+            )
+
         # Create a set of all topics inside difference values
         diff_set = set(chain.from_iterable(diff.values()))
 

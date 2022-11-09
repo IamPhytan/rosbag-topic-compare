@@ -26,15 +26,13 @@ Compare topics in rosbags inside BAGFOLDER,
 
 Available options are:
 
- -h, --help            show this help message and exit
- -o E, --output E       Metadata summary output path
- -p, --plot            Plotting mode : display a summary plot
- -o SP, --summary-plot SP
-                       Path for saving the summary plot
-
- -h, --help                                Show this help
- -b BAGFOLDER, --bagfolder BAGFOLDER       Path to folder with rosbags
- -p, --plot                                Optional. Show missing topics in a matplotlib figure
+options:
+  -h, --help            show this help message and exit
+  -m METADATA, --metadata METADATA
+                        Metadata summary output path
+  -p, --plot            Plotting mode : display a summary plot
+  --fig FIG, --summary-figure-path FIG
+                        Path for saving a topic consistency figure
 
 Version:
 --------
@@ -91,7 +89,7 @@ def main():
         if args.fig:
             rosbag_comp.plot(args.fig)
         else:
-            rosbag_comp.plot(data_path / "missing_topics.png")
+            rosbag_comp.plot()
     if not args.metadata and not is_plot:
         # Default behavior, without any arguments
         topics_desc = rosbag_comp.to_yaml_str()
