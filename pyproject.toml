@@ -27,9 +27,6 @@ GitLab = "https://gitlab.com/damienlarocque/rosbag-topic-compare"
 [project.scripts]
 rosbag-topic-compare = "rosbag_topic_compare.__main__:main"
 
-[tool.flit.module]
-name = "rosbag_topic_compare"
-
 [tool.isort]
 profile = "black"
 
