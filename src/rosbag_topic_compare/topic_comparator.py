@@ -142,10 +142,9 @@ class BagTopicComparator:
     def verify_data_extraction(self, caller_name: str):
         """Assert that extract_data() was called"""
         if not self.topics:
-            warnings.warn(
+            raise RuntimeError(
                 "Topics are not extracted."
-                f"Call extract_data() before calling {caller_name}",
-                RuntimeWarning,
+                f"Call 'extract_data()' before calling '{caller_name}'"
             )
 
     def export_metadata(self, path: Path | str = None) -> None:
@@ -161,7 +160,7 @@ class BagTopicComparator:
         path = f"topics_{self.folder.name}.json" if path is None else path
 
         # Infer from path extension
-        ext = path.suffix[1:].lower()
+        ext = Path(path).suffix[1:].lower()
         if ext not in ("json", "yaml", "yml"):
             raise NotImplementedError(
                 f"Metadata format {ext} is not supported. Try using json or yaml"
@@ -185,7 +184,7 @@ class BagTopicComparator:
         """Show the missing topics between the rosbags in each bag using a matplotlib scatterplot
 
         Args:
-            img_path: Figure export path. Defaults to None. If None, figure will be saved in `pwd/missing_topics.png`
+            img_path: Figure export path. Defaults to None. If None, the figure will be only displayed
         """
 
         if not mtp:
@@ -243,6 +242,6 @@ class BagTopicComparator:
         if img_path:
             # Save figure to file
             fig.savefig(img_path or f"missing_topics_{self.folder.name}.png")
-
-        # Show figure
-        plt.show()
+        else:
+            # Show figure
+            plt.show()
