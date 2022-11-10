@@ -197,7 +197,8 @@ class BagTopicComparator:
         # Get the difference dictionary
         diff = self.topics["difference"]
 
-        if len(diff) == 0:
+        # diff : {filename: [topics], filename: [topics], filename:[topics]}
+        if all(len(d) == 0 for d in diff.values()):
             raise ValueError(
                 "Dataset has no differences : all rosbags have the same topics. "
                 "Cannot plot a summary of the topic consistency"
