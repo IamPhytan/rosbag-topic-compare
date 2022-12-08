@@ -16,7 +16,7 @@ Say you have a bunch of rosbags inside a folder and you don't know whether or no
 
 ## Installation
 
-`rosbag-compare` can be installed from PyPi :
+`rosbag-topic-compare` can be installed from PyPi :
 
 ```console
 $ pip install rosbag-topic-compare
