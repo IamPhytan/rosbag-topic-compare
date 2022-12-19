@@ -244,7 +244,7 @@ class BagTopicComparator:
         ax.set_xticklabels(sorted(list(diff.keys())), rotation=45, ha="right")
 
         # Figure parameters
-        fig.suptitle(f"Missing topics in the rosbags of '{self.folder.name}'")
+        fig.suptitle(f"Missing topics in the rosbags of '{self.folder.resolve().name}'")
         plt.tight_layout()
 
         if img_path:
