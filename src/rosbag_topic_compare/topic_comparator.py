@@ -233,12 +233,13 @@ class BagTopicComparator:
         diff_sort = {k: sorted(v) for k, v in sorted(diff.items())}
 
         # Colors normalisation
+        cmap = plt.cm.turbo
         norm = mtp.colors.Normalize(vmin=0, vmax=len(tops_sort) - 1)
         colors = {k: norm(i) for i, k in enumerate(tops_sort)}
 
         for name, tops in diff_sort.items():
-            cols = [plt.cm.turbo(colors[top]) for top in tops]
-            ax.scatter([name] * len(tops), tops, c=cols, cmap="turbo")
+            cols = [cmap(colors[top]) for top in tops]
+            ax.scatter([name] * len(tops), tops, c=cols)
 
         # Rotate x axis labels by 45 degrees
         ax.set_xticklabels(sorted(list(diff.keys())), rotation=45, ha="right")
