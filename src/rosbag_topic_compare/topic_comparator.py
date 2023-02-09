@@ -107,7 +107,9 @@ class BagTopicComparator:
         # Create a dictionary with the list of topics for each bag file
         # {file1: ["/topic1", ...], ...}
         topics = {}
-        print(f"Extracting topics from {len(paths)} rosbags in {self.folder.name}")
+        print(
+            f"Extracting topics from {len(paths)} rosbags in {self.folder.resolve().name}"
+        )
         with tqdm(total=len(paths)) as pbar:
             for bagfile in paths:
                 pbar.set_description(bagfile.stem)
@@ -159,7 +161,7 @@ class BagTopicComparator:
         self.verify_data_extraction(self.export_metadata.__name__)
 
         # Default value
-        path = f"topics_{self.folder.name}.json" if path is None else path
+        path = f"topics_{self.folder.resolve().name}.json" if path is None else path
 
         # Infer from path extension
         ext = Path(path).suffix[1:].lower()
@@ -252,7 +254,7 @@ class BagTopicComparator:
 
         if img_path:
             # Save figure to file
-            fig.savefig(img_path or f"missing_topics_{self.folder.name}.png")
+            fig.savefig(img_path or f"missing_topics_{self.folder.resolve().name}.png")
         else:
             # Show figure
             plt.show()
